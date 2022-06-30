@@ -27,14 +27,14 @@ def get_cities() -> list:
     return list(map(lambda x: str(x[0]).title(), query_list))
 
 
-def get_city_info(city) -> str:
+def get_city_info(city) -> tuple:
     conn, cur = start_connection()
-    cur.execute(f"SELECT population from cityinfo WHERE city = '{city}'")
+    cur.execute(f"SELECT population, link from cityinfo WHERE city = '{city}'")
     item = cur.fetchone()
     conn.commit()
     cur.close()
     conn.close()
-    return str(item[0])
+    return str(item[0]), str(item[1])
 
 
 def start_parser() -> None:

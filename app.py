@@ -54,11 +54,15 @@ def app_start():
 
             # Если не тагаем бота, а пишим просто в чат
             elif res_text in get_cities():
-                bot.send_message(message.chat.id, f"население города {res_text}: " + get_city_info(res_text))
+                population, link = get_city_info(res_text)
+                bot.send_message(message.chat.id, f"""
+город: {res_text}
+население: {population} человек
+ссылка на wiki: {link}""")
 
     bot.polling(none_stop=True)
 
 
 if __name__ == "__main__":
-    start_parser() # создаем бд и наполняем/обновляем
-    app_start() # cтартуем приложение
+    start_parser()  # создаем бд и наполняем/обновляем
+app_start()  # cтартуем приложение
